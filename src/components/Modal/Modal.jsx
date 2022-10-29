@@ -4,11 +4,16 @@ import styles from './Modal.module.css';
 
 const Modal = ({ closeModal, largeImageURL }) => {
   useEffect(() => {
+    const handleKeyDown = e => {
+      if (e.code === 'Escape') {
+        closeModal();
+      }
+    };
     window.addEventListener('keydown', handleKeyDown);
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  });
+  }, [closeModal]);
 
   const handleBackdropClick = e => {
     if (e.currentTarget === e.target) {
@@ -16,11 +21,11 @@ const Modal = ({ closeModal, largeImageURL }) => {
     }
   };
 
-  const handleKeyDown = e => {
-    if (e.code === 'Escape') {
-      closeModal();
-    }
-  };
+  // const handleKeyDown = e => {
+  //   if (e.code === 'Escape') {
+  //     closeModal();
+  //   }
+  // };
 
   return (
     <div className={styles.Overlay} onClick={handleBackdropClick}>
